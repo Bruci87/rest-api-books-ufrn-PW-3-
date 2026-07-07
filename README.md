@@ -25,3 +25,28 @@ http://localhost:8080/api/livros?page=0&size=2
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpX...RsmkJoNXypXTPEdQGbCNm18"
 }
+---
+
+## 🗺️ Mapeamento ORM & Modelo Relacional (Questão 1)
+
+A arquitetura do domínio foi inteiramente construída utilizando **JPA / Hibernate** para mapear o banco de dados relacional a partir do diagrama fornecido. Os relacionamentos e cardinalidades foram implementados de forma bidirecional respeitando os seguintes critérios:
+
+### 1. Relação Um para Um (1:1)
+* **Entidades:** `Livro` ↔ `ResumoLivro`
+* **Implementação:** A entidade `Livro` atua como dona do relacionamento utilizando a anotação `@OneToOne` conjugada com `@JoinColumn(name = "resumo_id")`. A entidade `ResumoLivro` mapeia a via inversa usando `mappedBy = "resumoLivro"`.
+* **Resultado no Banco:** Geração de uma chave estrangeira única na tabela de livros.
+
+### 2. Relação Um para Muitos (1:N)
+* **Entidades:** `Editora` ↔ `Livro`
+* **Implementação:** Cada `Livro` possui uma única `Editora` mapeada por `@ManyToOne` com `@JoinColumn(name = "editora_id")`. Por sua vez, `Editora` possui uma lista de livros anotada com `@OneToMany(mappedBy = "editora")`.
+* **Resultado no Banco:** Criação da chave estrangeira `editora_id` dentro da tabela de livros para integridade referencial.
+
+### 3. Relação Muitos para Muitos (N:M)
+* **Entidades:** `Livro` ↔ `Autor`
+* **Implementação:** Relacionamento gerenciado através da anotação `@ManyToMany` no atributo `autores` de `Livro`. A tabela intermédia e associativa foi customizada explicitamente no código através da anotação:
+  ```java
+  @JoinTable(
+      name = "livro_autor",
+      joinColumns = @JoinColumn(name = "livro_id"),
+      inverseJoinColumns = @JoinColumn(name = "autor_id")
+  )
