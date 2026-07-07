@@ -3,6 +3,7 @@ package com.ufrn.pw.core.domain;
 import jakarta.persistence.*;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import java.util.List;
 
 @Entity
@@ -23,6 +24,7 @@ public class Livro {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "editora_id")
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     private Editora editora;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

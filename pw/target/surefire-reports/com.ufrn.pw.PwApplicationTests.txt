@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.ufrn.pw.PwApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.42 s -- in com.ufrn.pw.PwApplicationTests
