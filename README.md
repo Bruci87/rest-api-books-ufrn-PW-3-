@@ -17,6 +17,16 @@ Gera o Token JWT necessário para efetuar operações de alteração no banco de
 * **Corpo (Body):** Não exige corpo (gera credenciais automáticas de administrador)
 * **Exemplo de URL com parâmetros:**
 ```http
+---
+
+## 🚀 Gerenciamento de Migrações & Scripts DDL (Questão 2)
+
+Para garantir a evolução controlada do banco de dados e atender aos requisitos de isolamento do ORM, o projeto foi estruturado para utilizar uma ferramenta de versionamento de banco de dados (Flyway), mitigando alterações automáticas imprevisíveis em ambiente de produção.
+
+### 1. Inibição do Schema Automático do Hibernate
+Em total conformidade com o enunciado, o comportamento de geração automática do Hibernate é desativado através da seguinte propriedade de configuração em ambiente produtivo:
+```properties
+spring.jpa.hibernate.ddl-auto=none
 http://localhost:8080/api/livros?page=0&size=2
 
 
